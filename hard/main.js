@@ -1,3 +1,4 @@
+"use strict";
 let num=266219;
 let str=String(num);
 let res=1;

@@ -6,8 +6,8 @@ function isNum(n){
 
 let money, 
 income="freelance", 
-addExpenses="Courses, internet, car", 
-deposit=true,
+addExpenses, 
+deposit,
  mission=7000000, 
  period=12,
  budgetDay;
@@ -22,20 +22,11 @@ start();
 
 
 
- //2
- let showTypeOf=(data)=>{
-    console.log(data, typeof(data));
- }
-showTypeOf(money);
-showTypeOf(income);
-showTypeOf(deposit);
 
 
 //4
 
 addExpenses=prompt("Перечислите возможные расходы за рассчитываемый период через запятую").toLowerCase().split(","); 
-console.log(addExpenses);
-
 deposit=confirm("Есть ли у вас депозит в банке?");
 
 let expenses=[];
@@ -56,6 +47,8 @@ let getAccumulatedMonth=(income,costs)=>income-costs;
 let accumulatedMonth=getAccumulatedMonth(money,expensesAmount);
 
 console.log("Расходы за месяц: ", expensesAmount);
+console.log("Возможные расходы: ",addExpenses);
+
 console.log("Бюджет на месяц: ", accumulatedMonth);
 
 let getTargetMonth=(target,budget)=>{
@@ -66,7 +59,7 @@ let getTargetMonth=(target,budget)=>{
 };
 console.log(getTargetMonth(mission,accumulatedMonth));
 
-budgetDay=accumulatedMonth/12;
+budgetDay=accumulatedMonth/30;
 console.log("Бюджет на день: ", Math.floor(budgetDay));
 
 //уровень дохода
@@ -85,6 +78,15 @@ let getStatusIncome=(budget)=>{
     }
 };
 console.log(getStatusIncome(budgetDay));
+
+ //2
+ let showTypeOf=(data)=>{
+    console.log(data, typeof(data));
+ }
+// showTypeOf(money);
+// showTypeOf(income);
+// showTypeOf(deposit);
+
 
 
 

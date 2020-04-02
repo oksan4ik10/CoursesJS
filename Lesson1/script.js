@@ -9,7 +9,6 @@ income="freelance",
 addExpenses, 
 deposit,
  mission=7000000, 
- amount=0,
  period=12,
  budgetDay;
 
@@ -29,13 +28,13 @@ deposit=confirm("Есть ли у вас депозит в банке?");
 let expenses=[];
 
 let getExpensesMonth=()=>{
-    let sum=0;
+    let sum=0,s;
     for (let i = 0; i < 2; i++) {
+        expenses[i]=prompt("Введите обязательную статью расходов?");
         do {
-            expenses[i]=prompt("Введите обязательную статью расходов?");
-            sum=prompt("Во сколько это обойдется?");
-        } while (!isNum(sum))
-        sum+=Number(sum);
+            s=prompt("Во сколько это обойдется?");
+        } while (!isNum(s))
+        sum+=Number(s);
         console.log(sum); 
     }
     return sum;

@@ -56,10 +56,10 @@ let showTypeOf=(data)=>{
     console.log(data, typeof(data));
  }
 
-// showTypeOf(money);
-// showTypeOf(income);
-// showTypeOf(deposit);
-// console.log(addExpenses.length);
+showTypeOf(money);
+showTypeOf(income);
+showTypeOf(deposit);
+console.log(addExpenses.length);
 
 
 

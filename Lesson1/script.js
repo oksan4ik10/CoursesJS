@@ -9,6 +9,7 @@ income="freelance",
 addExpenses, 
 deposit,
  mission=7000000, 
+ amount=0,
  period=12,
  budgetDay;
 
@@ -20,10 +21,6 @@ let start=()=>{
 
 start();
 
-
-
-
-
 //4
 
 addExpenses=prompt("Перечислите возможные расходы за рассчитываемый период через запятую").toLowerCase().split(","); 
@@ -34,8 +31,12 @@ let expenses=[];
 let getExpensesMonth=()=>{
     let sum=0;
     for (let i = 0; i < 2; i++) {
-        expenses[i]=prompt("Введите обязательную статью расходов?");
-        sum+=+prompt("Во сколько это обойдется?");
+        do {
+            expenses[i]=prompt("Введите обязательную статью расходов?");
+            sum=prompt("Во сколько это обойдется?");
+        } while (!isNum(sum))
+        sum+=Number(sum);
+        console.log(sum); 
     }
     return sum;
 }

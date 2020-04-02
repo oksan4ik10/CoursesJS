@@ -25,7 +25,7 @@ let getAccumulatedMonth=(income,costs)=>income-costs;
 let accumulatedMonth=getAccumulatedMonth(money,getExpensesMonth(amount1,amount2));
 
 console.log("Расходы за месяц: ", getExpensesMonth(amount1,amount2));
-console.log("Возможные расходы: ",addExpenses.split(","));
+console.log("Возможные расходы: ",addExpenses.toLowerCase().split(","));
 
 console.log("Бюджет на месяц: ", accumulatedMonth);
 

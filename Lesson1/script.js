@@ -83,9 +83,9 @@ console.log(getStatusIncome(budgetDay));
  let showTypeOf=(data)=>{
     console.log(data, typeof(data));
  }
-// showTypeOf(money);
-// showTypeOf(income);
-// showTypeOf(deposit);
+showTypeOf(money);
+showTypeOf(income);
+showTypeOf(deposit);
 
 
 

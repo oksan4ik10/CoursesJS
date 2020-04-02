@@ -1,19 +1,19 @@
 'use strict';
 
-let money=57000, 
+let money, 
 income="freelance", 
-addExpenses="Courses, internet, car", 
-deposit=true,
+addExpenses, 
+deposit,
  mission=7000000, 
  period=12,
- budgetDay=money/30;
+ budgetDay;
 
 
  //2
 console.log(typeof(money));
 console.log(typeof(income));
 console.log(typeof(deposit));
-console.log(addExpenses.length);
+
 
 console.log(budgetDay);
 
@@ -24,8 +24,8 @@ deposit=confirm("Есть ли у вас депозит в банке?");
 console.log(addExpenses.toLowerCase().split(","));
 
 let expenses1=prompt("Введите обязательную статью расходов?");
-let expenses2=prompt("Введите обязательную статью расходов?");
 let amount1=+prompt("Во сколько это обойдется?");
+let expenses2=prompt("Введите обязательную статью расходов?");
 let amount2=+prompt("Во сколько это обойдется?");
 
 let budgetMonth=money-(amount1+amount2);
@@ -48,5 +48,5 @@ else{
     console.log("Что-то пошло не так :'(");
 }
 
-
+console.log(addExpenses.length);
 

@@ -10,17 +10,18 @@ deposit=true,
 
 
  //2
-// console.log(typeof(money));
-// console.log(typeof(income));
-// console.log(typeof(deposit));
-// console.log(addExpenses.length);
-// console.log(addExpenses.toLowerCase().split(", "));
-// console.log(budgetDay);
+console.log(typeof(money));
+console.log(typeof(income));
+console.log(typeof(deposit));
+console.log(addExpenses.length);
+
+console.log(budgetDay);
 
 //3
 money=+prompt("Ваш месячный доход?");
 addExpenses=prompt("Перечислите возможные расходы за рассчитываемый период через запятую");
 deposit=confirm("Есть ли у вас депозит в банке?");
+console.log(addExpenses.toLowerCase().split(","));
 
 let expenses1=prompt("Введите обязательную статью расходов?");
 let expenses2=prompt("Введите обязательную статью расходов?");
@@ -34,10 +35,10 @@ console.log("Цель будет достигнута за: ",Math.ceil(mission/
 budgetDay=budgetMonth/12;
 console.log("Бюджет на день: ", Math.floor(budgetDay));
 
-if (budgetDay){
+if (budgetDay>=1200){
     console.log("Высокий уровень :)");
 }
-else if (budgetDay>600){
+else if (budgetDay>=600){
     console.log("Средний :|");
 }
 else if (budgetDay>=0){

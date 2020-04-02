@@ -12,7 +12,6 @@ function game(){
     }
     data();
     function change(){
-        
         let user=prompt("Угадай число от 1 до 100");
         count++;
         console.log(count);

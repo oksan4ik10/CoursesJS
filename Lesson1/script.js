@@ -3,16 +3,8 @@ function isNum(n){
     return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
-
-let money, 
-income="freelance", 
-addExpenses, 
-deposit,
- mission=7000000, 
- period=12,
- budgetDay;
-
-let start=()=>{
+let money,
+start=()=>{
     do{
         money=prompt("Ваш месячный доход?");
     }while(!isNum(money))
@@ -20,10 +12,33 @@ let start=()=>{
 
 start();
 
-//4
+let appData={
+   income:{},
+   addIncome:[],
+   expenses:{},
+   addExpenses:[],
+   deposit:false,
+   mission:50000,
+   period:12,
+   asking: ()=>{
+       appData.addExpenses=prompt("Перечислите возможные расходы за рассчитываемый период через запятую").toLowerCase().split(",");
+       appData.deposit= confirm("Есть ли у вас депозит в банке?");
+   
+    }
+}
 
-addExpenses=prompt("Перечислите возможные расходы за рассчитываемый период через запятую").toLowerCase().split(","); 
-deposit=confirm("Есть ли у вас депозит в банке?");
+appData.asking();
+console.log(appData);
+
+let 
+income="freelance", 
+addExpenses, 
+deposit,
+ mission=7000000, 
+ period=12,
+ budgetDay;
+
+
 
 let expenses=[];
 
@@ -79,13 +94,7 @@ let getStatusIncome=(budget)=>{
 };
 console.log(getStatusIncome(budgetDay));
 
- //2
- let showTypeOf=(data)=>{
-    console.log(data, typeof(data));
- }
-showTypeOf(money);
-showTypeOf(income);
-showTypeOf(deposit);
+
 
 
 

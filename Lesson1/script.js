@@ -13,7 +13,7 @@ start=()=>{
 start();
 
 let appData={
-   income:{},
+   income:{}, //дополнительный заработок
    addIncome:[],
    expenses:{},
    addExpenses:[],
@@ -25,6 +25,7 @@ let appData={
    budgetMonth:0,
    expensesMonth:0,
    asking: ()=>{
+  
        appData.addExpenses=prompt("Перечислите возможные расходы за рассчитываемый период через запятую").toLowerCase().split(",");
        appData.deposit= confirm("Есть ли у вас депозит в банке?");
        for (let i = 0; i < 2; i++) {
@@ -77,6 +78,10 @@ appData.getBudget();
 console.log("Расходы за месяц: ",appData.expensesMonth);
 console.log(appData.getTargetMonth());
 console.log(appData.getStatusIncome());
+
+for(let key in appData){
+    console.log(appData[key]);
+}
 
 
 

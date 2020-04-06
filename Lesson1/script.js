@@ -13,7 +13,7 @@ start=()=>{
 start();
 
 let appData={
-   income:{},
+   income:{}, //дополнительный заработок
    addIncome:[],
    expenses:{},
    addExpenses:[],
@@ -24,15 +24,33 @@ let appData={
    budgetDay:0,
    budgetMonth:0,
    expensesMonth:0,
+   percentDeposit:0,
+   moneyDeposit:0,
    asking: ()=>{
+    if(confirm("Есть ли у Вас доп заработок?")){
+        let itemIncome,cashIncome;
+        do{
+            itemIncome=prompt("Какой доп.заработок?","Фриланс");
+        }while (isNum(itemIncome)||itemIncome==="");
+        do{
+            cashIncome=prompt("Сколько зарабатываете?",10000);
+        }while(!isNum(cashIncome))
+       appData.income[itemIncome]=+cashIncome;
+    }
+
        appData.addExpenses=prompt("Перечислите возможные расходы за рассчитываемый период через запятую").toLowerCase().split(",");
+
        appData.deposit= confirm("Есть ли у вас депозит в банке?");
        for (let i = 0; i < 2; i++) {
-           let s=prompt("Введите обязательную статью расходов?");
-            appData.expenses[s]="";
-        do {
-            appData.expenses[s]=prompt("Во сколько это обойдется?");
-        } while (!isNum(appData.expenses[s]))
+           let s;
+           do {
+                s=prompt("Введите обязательную статью расходов");
+           }while(isNum(s)||s==="")
+           
+           appData.expenses[s]="";
+           do {
+                appData.expenses[s]=prompt("Во сколько это обойдется?");
+            } while (!isNum(appData.expenses[s]))
     }
        },
     getExpensesMonth:()=>{
@@ -65,7 +83,18 @@ let appData={
         else{
             return("Что-то пошло не так :'(");
         }
-    }
+    },
+    getInfoDeposit:()=>{
+        if (appData.deposit){
+            do{
+                appData.percentDeposit=prompt("Какой годовой процент депозита?", 10);
+                appData.moneyDeposit=prompt('Какая сумма заложена?')
+            } while (!isNum(appData.percentDeposit)||!isNum(appData.moneyDeposit))
+            
+
+        }
+    },
+    calcSavedMonth:()=>appData.budgetMonth*appData.period
 
 
 }
@@ -73,10 +102,19 @@ let appData={
 appData.asking();
 appData.getExpensesMonth();
 appData.getBudget();
+appData.getInfoDeposit();
+console.log('jjjjj',appData.calcSavedMonth());
+
+
+
 
 console.log("Расходы за месяц: ",appData.expensesMonth);
 console.log(appData.getTargetMonth());
 console.log(appData.getStatusIncome());
+
+for(let key in appData){
+    console.log(appData[key]);
+}
 
 
 

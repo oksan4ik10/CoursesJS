@@ -102,8 +102,7 @@ let appData={
 appData.asking();
 appData.getExpensesMonth();
 appData.getBudget();
-appData.getInfoDeposit();
-console.log('jjjjj',appData.calcSavedMonth());
+
 
 
 

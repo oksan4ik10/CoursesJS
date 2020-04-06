@@ -103,6 +103,15 @@ appData.asking();
 appData.getExpensesMonth();
 appData.getBudget();
 
+<<<<<<< HEAD
+=======
+let appDataStr="";
+for (let i of appData.addExpenses){
+    appDataStr+=i[0].toUpperCase()+i.slice(1)+"\n"
+}
+console.log(appDataStr);
+
+>>>>>>> lesson8Hard
 
 
 

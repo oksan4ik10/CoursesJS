@@ -102,8 +102,13 @@ let appData={
 appData.asking();
 appData.getExpensesMonth();
 appData.getBudget();
-appData.getInfoDeposit();
-console.log('jjjjj',appData.calcSavedMonth());
+
+let appDataStr="";
+for (let i of appData.addExpenses){
+    appDataStr+=i[0].toUpperCase()+i.slice(1)+"\n"
+}
+console.log(appDataStr);
+
 
 
 

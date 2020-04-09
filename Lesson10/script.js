@@ -19,21 +19,19 @@ adv.remove();
 
 
 
-asideBooks.append(books[1]);
-asideBooks.append(books[0]);
-asideBooks.append(books[4]);
-asideBooks.append(books[3]);
-asideBooks.append(books[5]);
-asideBooks.append(books[2]);
+// asideBooks.append(books[1]);
+// asideBooks.append(books[0]);
+// asideBooks.append(books[4]);
+// asideBooks.append(books[3]);
+// asideBooks.append(books[5]);
+// asideBooks.append(books[2]);
 
 document.body.style="background-image: url(./image/you-dont-know-js.jpg);";
 
 books[4].querySelector("h2 a").textContent="Книга 3. this и Прототипы Объектов";
 
 
-
-
-
+//v 1.0
 function laziness(arr,book){
     let count=[];
     for (let i=2; i<arr.length;i++)
@@ -57,5 +55,14 @@ function laziness(arr,book){
     }
 }
 
-laziness(books2List,books2);
-laziness(books5List,books5)
+// v2/0
+books2List[1].after(books2List[3]);
+books2List[3].after(books2List[6]);
+books2List[6].after(books2List[8]);
+books2List[9].after(books2List[2]);
+
+books5List[1].after(books5List[9]);
+books5List[4].after(books5List[2]);
+books5List[7].after(books5List[5]);
+
+

@@ -25,6 +25,9 @@ expensesItems=document.querySelectorAll(".expenses-items"),
 incomeItems=document.querySelectorAll(".income-items"),
 periodAmount=document.querySelector(".period-amount");
 
+//для добавления пустых инпутов (дополнительный доход, обязательные расходы)
+let expItem=expensesItems[0].cloneNode(true),
+incItem=incomeItems[0].cloneNode(true);
 
 let appData={
     income:{}, //дополнительный заработок
@@ -90,14 +93,15 @@ let appData={
 
      },   
      addExpenses:()=>{
-         let newItem=expensesItems[0].cloneNode(true);
+         let newEl=expItem.cloneNode(true);
          if (expensesItems.length<3){
-             expensesItems[0].parentNode.insertBefore(newItem,buttonPlus2);
+            expensesItems[expensesItems.length-1].parentNode.insertBefore(newEl,buttonPlus2);
          }
          expensesItems=document.querySelectorAll(".expenses-items")                      
      },
+
      addIncomeVale:()=>{
-         let newItem=incomeItems[0].cloneNode(true);
+         let newItem=incItem.cloneNode(true);
          if (incomeItems.length<3){
             incomeItems[0].parentNode.insertBefore(newItem,buttonPlus1);
          }
@@ -117,7 +121,6 @@ let appData={
    },
      getExpensesMonth:()=>{
           expensesItems.forEach((el)=>{
-                
             appData.expenses[el.querySelector(".expenses-title").value.trim()]=el.querySelector(".expenses-amount").value.trim();
          })
          let sum=0;
@@ -189,14 +192,30 @@ let appData={
  
  
  }
-
- money.addEventListener("change",()=>{
+calc.disabled=true;
+ money.addEventListener("input",()=>{
      if (money.value.trim()!==""){         
-        calc.addEventListener("click",appData.start);
+        calc.disabled=false;
      }
-     else{ calc.removeEventListener("click",appData.start)}
+     else{ calc.disabled=true}
  })
- 
+ calc.addEventListener("click",appData.start);
  buttonPlus1.addEventListener("click",appData.addIncomeVale);
  buttonPlus2.addEventListener("click",appData.addExpenses);
  period.addEventListener("input",()=>periodAmount.textContent=period.value)
+
+ //запрет ввода 
+let nameWords=document.querySelectorAll("input[placeholder='Наименование']"),
+nameSum=document.querySelectorAll("input[placeholder='Сумма']");
+
+nameWords.forEach((el)=>{
+        el.addEventListener("input",(e)=>{
+           e.target.value=e.target.value.replace(/([A-Z])|(\d)/gi,"");
+        })
+})
+nameSum.forEach((el)=>{
+    el.addEventListener("input",(e)=>{
+        e.target.value=e.target.value.replace(/\D/g,"");
+    })
+})
+

@@ -1,4 +1,5 @@
 let calc=document.getElementById("start"),
+cancel=document.getElementById("cancel"),
 buttonPlus1=document.getElementsByTagName("button")[0],
 buttonPlus2=document.getElementsByTagName("button")[1],
 check=document.getElementById("deposit-check"),
@@ -29,6 +30,9 @@ periodAmount=document.querySelector(".period-amount");
 let expItem=expensesItems[0].cloneNode(true),
 incItem=incomeItems[0].cloneNode(true);
 
+
+
+
 let appData={
     income:{}, //дополнительный заработок
     incomeMonth:0,
@@ -37,51 +41,24 @@ let appData={
     addExpenses:[],
     mission:"",
     deposit:false,
-    period:12,
-    budget:+money,
+    period:0,
     budgetDay:0,
     budgetMonth:0,
     expensesMonth:0,
     percentDeposit:0,
     moneyDeposit:0,
-    start: ()=>{
-        appData.getExpensesMonth();
-        appData.getIncomeMonth();
-        appData.getAddExpenses();
-        appData.getAddIncome();
-        appData.getBudget();
-        appData.getTargetMonth();
-
-        appData.showResult();
-        
-    //  if(confirm("Есть ли у Вас доп заработок?")){
-    //      let itemIncome,cashIncome;
-    //      do{
-    //          itemIncome=prompt("Какой доп.заработок?","Фриланс");
-    //      }while (isNum(itemIncome)||itemIncome==="");
-    //      do{
-    //          cashIncome=prompt("Сколько зарабатываете?",10000);
-    //      }while(!isNum(cashIncome))
-    //     appData.income[itemIncome]=+cashIncome;
-    //  }
- 
-    //     appData.addExpenses=prompt("Перечислите возможные расходы за рассчитываемый период через запятую").toLowerCase().split(",");
- 
-    //     appData.deposit= confirm("Есть ли у вас депозит в банке?");
-    //     for (let i = 0; i < 2; i++) {
-    //         let s;
-    //         do {
-    //              s=prompt("Введите обязательную статью расходов");
-    //         }while(isNum(s)||s==="")
-            
-    //         appData.expenses[s]="";
-    //         do {
-    //              appData.expenses[s]=prompt("Во сколько это обойдется?");
-    //          } while (!isNum(appData.expenses[s]))
-    //  }
+    start: function(){
+        this.getExpensesMonth();
+        this.getIncomeMonth();
+        this.getAddExpenses();
+        this.getAddIncome();
+        this.getBudget();
+        this.getTargetMonth();
+        this.showResult();
+        res();
         },
     
-     showResult:()=>{
+     showResult:function(){
         expensesMonth.value=appData.expensesMonth;
         addExpenses.value=appData.getAddExpenses().join(", ");
         incomeValue.value=appData.addIncome.join(", ");
@@ -90,6 +67,7 @@ let appData={
         accumulation.value=+appData.budgetMonth*period.value;  
         period.addEventListener("input",()=>accumulation.value=appData.budgetMonth*period.value)
         missionMonth.value=appData.mission;
+    
 
      },   
      addExpenses:()=>{
@@ -192,17 +170,55 @@ let appData={
  
  
  }
+
+//для обнуления значений запомним начальное состояние appData
+ let oldAppData={}
+ for(key in appData){
+     oldAppData[key]=appData[key];
+ }
+ 
+
+ 
+
+
+//функция сброса
+res=()=>{
+    let inputText=document.querySelectorAll("input[type=text] ");
+    inputText.forEach((el)=>el.readOnly=true); //блокировать все input
+    calc.style.display="none";
+    cancel.style.display="block"; //кнопка сбросить    
+}
+//сброс всех инпутов
+cancel.addEventListener("click",()=>{
+    let inputAll=document.querySelectorAll("input");
+    inputAll.forEach((el)=>{
+        if (el.type==="range") el.value=1
+        else el.value="";
+    });
+    for(key in appData){
+        appData[key]=oldAppData[key];
+    }
+ })
+
+
+ //пока не заполнено поле Бюджет, кнопка Рассчитать не работает
 calc.disabled=true;
  money.addEventListener("input",()=>{
-     if (money.value.trim()!==""){         
+     if (money.value!==""){         
         calc.disabled=false;
      }
      else{ calc.disabled=true}
  })
- calc.addEventListener("click",appData.start);
- buttonPlus1.addEventListener("click",appData.addIncomeVale);
- buttonPlus2.addEventListener("click",appData.addExpenses);
- period.addEventListener("input",()=>periodAmount.textContent=period.value)
+calc.addEventListener("click",appData.start.bind(appData));//привязка к контексту
+
+
+
+
+
+buttonPlus1.addEventListener("click",appData.addIncomeVale);
+buttonPlus2.addEventListener("click",appData.addExpenses);
+period.addEventListener("input",()=>periodAmount.textContent=period.value)
+
 
  //запрет ввода 
 let nameWords=document.querySelectorAll("input[placeholder='Наименование']"),

@@ -1,0 +1,6 @@
+*.txt
+*.jshint
+<<<<<<< HEAD
+=======
+*.jshintrc
+>>>>>>> lesson9

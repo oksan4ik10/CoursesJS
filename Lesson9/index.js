@@ -24,7 +24,10 @@ targetAmount=document.querySelector(".target-amount"),
 period=document.querySelector(".period-select"),
 expensesItems=document.querySelectorAll(".expenses-items"),
 incomeItems=document.querySelectorAll(".income-items"),
-periodAmount=document.querySelector(".period-amount");
+periodAmount=document.querySelector(".period-amount"),
+
+inputText=document.querySelectorAll("input[type=text] "); //все инпуты с типом текст для блокировки и разблокировки
+
 
 //для добавления пустых инпутов (дополнительный доход, обязательные расходы)
 let expItem=expensesItems[0].cloneNode(true),
@@ -70,21 +73,7 @@ let appData={
     
 
      },   
-     addExpenses:()=>{
-         let newEl=expItem.cloneNode(true);
-         if (expensesItems.length<3){
-            expensesItems[expensesItems.length-1].parentNode.insertBefore(newEl,buttonPlus2);
-         }
-         expensesItems=document.querySelectorAll(".expenses-items")                      
-     },
 
-     addIncomeVale:()=>{
-         let newItem=incItem.cloneNode(true);
-         if (incomeItems.length<3){
-            incomeItems[0].parentNode.insertBefore(newItem,buttonPlus1);
-         }
-         incomeItems=document.querySelectorAll(".income-items")   
-     },
      getIncomeMonth:()=>{
         incomeItems.forEach((el)=>{
           appData.income[el.querySelector(".income-title").value.trim()]=el.querySelector(".income-amount").value.trim();
@@ -142,30 +131,16 @@ let appData={
      },
 
 
-     getStatusIncome:()=>{
-         if (appData.budgetDay>=1200){
-             return("Высокий уровень :)");
-         }
-         else if (appData.budgetDay>=600){
-             return("Средний :|");
-         }
-         else if (appData.budgetDay>=0){
-             return("Низкий :(");
-         }
-         else{
-             return("Что-то пошло не так :'(");
-         }
-     },
-     getInfoDeposit:()=>{
-         if (appData.deposit){
-             do{
-                 appData.percentDeposit=prompt("Какой годовой процент депозита?", 10);
-                 appData.moneyDeposit=prompt('Какая сумма заложена?')
-             } while (!isNum(appData.percentDeposit)||!isNum(appData.moneyDeposit))
+    //  getInfoDeposit:()=>{
+    //      if (appData.deposit){
+    //          do{
+    //              appData.percentDeposit=prompt("Какой годовой процент депозита?", 10);
+    //              appData.moneyDeposit=prompt('Какая сумма заложена?')
+    //          } while (!isNum(appData.percentDeposit)||!isNum(appData.moneyDeposit))
              
  
-         }
-     },
+    //      }
+    //  },
      calcSavedMonth:()=>appData.budgetMonth*appData.period
  
  
@@ -176,18 +151,32 @@ let appData={
  for(key in appData){
      oldAppData[key]=appData[key];
  }
- 
-
- 
-
 
 //функция сброса
 res=()=>{
-    let inputText=document.querySelectorAll("input[type=text] ");
     inputText.forEach((el)=>el.readOnly=true); //блокировать все input
+    calc.disabled=false
     calc.style.display="none";
     cancel.style.display="block"; //кнопка сбросить    
-}
+};
+
+//функции для добавления новых полей по клику по +
+const addExpensesValue=()=>{
+    let newEl=expItem.cloneNode(true);
+    if (expensesItems.length<3){
+       expensesItems[expensesItems.length-1].parentNode.insertBefore(newEl,buttonPlus2);
+    }
+    expensesItems=document.querySelectorAll(".expenses-items")                      
+};
+
+const addIncomeValue=()=>{
+    let newItem=incItem.cloneNode(true);
+    if (incomeItems.length<3){
+       incomeItems[0].parentNode.insertBefore(newItem,buttonPlus1);
+    }
+    incomeItems=document.querySelectorAll(".income-items")   
+};
+
 //сброс всех инпутов
 cancel.addEventListener("click",()=>{
     let inputAll=document.querySelectorAll("input");
@@ -198,6 +187,12 @@ cancel.addEventListener("click",()=>{
     for(key in appData){
         appData[key]=oldAppData[key];
     }
+    inputText.forEach((el)=>el.readOnly=false);
+    
+    
+    calc.style.display="block";
+    calc.disabled=true;
+    cancel.style.display="none"; //кнопка сбросить 
  })
 
 
@@ -215,8 +210,8 @@ calc.addEventListener("click",appData.start.bind(appData));//привязка к
 
 
 
-buttonPlus1.addEventListener("click",appData.addIncomeVale);
-buttonPlus2.addEventListener("click",appData.addExpenses);
+buttonPlus1.addEventListener("click",addIncomeValue);
+buttonPlus2.addEventListener("click",addExpensesValue);
 period.addEventListener("input",()=>periodAmount.textContent=period.value)
 
 

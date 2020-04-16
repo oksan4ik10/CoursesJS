@@ -78,6 +78,9 @@ let appData={
     //  }
         },
     
+
+
+
      showResult:()=>{
         expensesMonth.value=appData.expensesMonth;
         addExpenses.value=appData.getAddExpenses().join(", ");
@@ -89,20 +92,7 @@ let appData={
         missionMonth.value=appData.mission;
 
      },   
-     addExpenses:()=>{
-         let newItem=expensesItems[0].cloneNode(true);
-         if (expensesItems.length<3){
-             expensesItems[0].parentNode.insertBefore(newItem,buttonPlus2);
-         }
-         expensesItems=document.querySelectorAll(".expenses-items")                      
-     },
-     addIncomeVale:()=>{
-         let newItem=incomeItems[0].cloneNode(true);
-         if (incomeItems.length<3){
-            incomeItems[0].parentNode.insertBefore(newItem,buttonPlus1);
-         }
-         incomeItems=document.querySelectorAll(".income-items")   
-     },
+ 
      getIncomeMonth:()=>{
         incomeItems.forEach((el)=>{
           appData.income[el.querySelector(".income-title").value.trim()]=el.querySelector(".income-amount").value.trim();
@@ -190,13 +180,34 @@ let appData={
  
  }
 
- money.addEventListener("change",()=>{
-     if (money.value.trim()!==""){         
-        calc.addEventListener("click",appData.start);
-     }
-     else{ calc.removeEventListener("click",appData.start)}
- })
- 
- buttonPlus1.addEventListener("click",appData.addIncomeVale);
- buttonPlus2.addEventListener("click",appData.addExpenses);
+
+ //функции для добвления полей по нажатию +
+ const addExpensesValue=()=>{
+     console.log(1);
+     
+    let newItem=expensesItems[0].cloneNode(true);
+    if (expensesItems.length<3){
+        expensesItems[0].parentNode.insertBefore(newItem,buttonPlus2);
+    }
+    expensesItems=document.querySelectorAll(".expenses-items")                      
+},
+addIncomeValue=()=>{
+    let newItem=incomeItems[0].cloneNode(true);
+    if (incomeItems.length<3){
+       incomeItems[0].parentNode.insertBefore(newItem,buttonPlus1);
+    }
+    incomeItems=document.querySelectorAll(".income-items")   
+};
+
+
+
+
+money.addEventListener("change",()=>{
+    if (money.value.trim()!==""){         
+       calc.addEventListener("click",appData.start);
+    }
+    else{ calc.removeEventListener("click",appData.start)}
+})
+ buttonPlus1.addEventListener("click",addIncomeValue);
+ buttonPlus2.addEventListener("click",addExpensesValue);
  period.addEventListener("input",()=>periodAmount.textContent=period.value)

@@ -41,10 +41,11 @@ incItem=incomeItems[0].cloneNode(true);
 
 class AppData{
     constructor(){
-    this.income={}; //дополнительный заработок
+
+
     this.incomeMonth=0;
     this.addIncome=[];
-    this.expenses={};
+
     this.addExpenses=[];
     this.mission="";
     this.deposit=false;
@@ -54,60 +55,77 @@ class AppData{
     this.expensesMonth=0;
     this.percentDeposit=0;
     this.moneyDeposit=0;
+
+    //стали не нужны после объединение двух методов
+        // this.income={}; //дополнительный заработок
+        // this.expenses={};
     }
         start(){
-            this.getExpensesMonth();
-            this.getIncomeMonth();
-            this.getAddExpenses();
-            this.getAddIncome();
+            this.getExpensIncome();
+            // this.getExpensesMonth();
+            // this.getIncomeMonth();
+            this. getAddExpInc();
+            // this.getAddExpenses();
+            // this.getAddIncome();
             this.getBudget();
             this.getTargetMonth();
             this.showResult();
             this.res();
             this.addIncome=[];
         }
-        getExpensesMonth(){
-                expensesItems.forEach((el)=>{
-                appData.expenses[el.querySelector(".expenses-title").value.trim()]=el.querySelector(".expenses-amount").value.trim();
-            })
-            let sum=0;
-            for(let key in this.expenses){
-                if(!isNaN(this.expenses[key])){
-                    sum+=+this.expenses[key]; 
-                }      
-            }
-            this.expensesMonth=sum;
-        }
-        getIncomeMonth() {
-            incomeItems.forEach((el)=>{
-                this.income[el.querySelector(".income-title").value.trim()]=el.querySelector(".income-amount").value.trim();
-            })
-            let sum=0;
-            for(let key in this.income){
-                if(!isNaN(this.income[key])){
-                    sum+=+this.income[key]; 
-                }      
-            }
-            this.incomeMonth=sum;    
-        }
-        getAddExpenses(){
-            let arr=[];
-            let newEl=addExpensesItem.value.split(",");
-            newEl.forEach((el)=>{
-                el=el.trim();
-                if (el!=="") arr.push(el);
-            })
-            return arr;
-         }
 
-         getAddIncome(){
-            this.addIncome=[];
-            addincomeItems.forEach((el)=>{            
-                el=el.value.trim();
-                if (el!=="") this.addIncome.push(el);
-            })
-         }
 
+    //один метод вместо двух getExpensesMonth() и getIncomeMonth() 
+        getExpensIncome(){
+            let summa=(items)=>{
+                let newOb={};
+                console.log(items);
+                
+                items.forEach((el)=>{
+                    let nameClass=el.className.split("-")[0],
+                    nameProperty=el.querySelector(`.${nameClass}-title`).value.trim(),
+                    nameValue=el.querySelector(`.${nameClass}-amount`).value.trim();
+                    newOb[nameProperty]=nameValue
+                })
+                let sum=0;
+                for(let key in newOb){
+                    if(!isNaN(newOb[key])){
+                        sum+=+newOb[key]; 
+                    }      
+                }
+                return sum;
+            
+            }
+            // expensesItems.forEach(summa);
+            // incomeItems.forEach(summa);
+            this.expensesMonth=summa(expensesItems);
+            this.incomeMonth=summa(incomeItems);  
+
+        }
+
+
+        //один метод вместо двух getAddExpenses() и getAddIncome()
+        getAddExpInc(){
+            console.log(addincomeItems.value);
+            
+            
+            const addItem=(newArr)=>{
+                let arr=[];
+                newArr.forEach((el)=>{
+                    console.log(el);
+                    
+                    el=el.trim();
+                    if (el!=="") arr.push(el);
+                })
+               return arr;
+            }
+            
+            let arrAddIncome=[];
+            addincomeItems.forEach((el) => arrAddIncome.push(el.value))
+            this.addIncome=addItem(arrAddIncome);
+            this.addExpenses=addItem(addExpensesItem.value.split(","));
+
+        }
          getBudget(){
             this.budgetMonth=(+money.value+this.incomeMonth)-this.expensesMonth;
             this.budgetDay=(this.budgetMonth/30).toFixed(2);   
@@ -122,7 +140,7 @@ class AppData{
           } 
           showResult(){
             expensesMonth.value=this.expensesMonth;
-            addExpenses.value=this.getAddExpenses().join(", ");
+            addExpenses.value=this.addExpenses.join(", ");
             incomeValue.value=this.addIncome.join(", ");
             
             budgetDayValue.value=this.budgetDay;

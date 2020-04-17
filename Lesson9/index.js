@@ -1,4 +1,4 @@
-let calc=document.getElementById("start"),
+const calc=document.getElementById("start"),
 cancel=document.getElementById("cancel"),
 buttonPlus1=document.getElementsByTagName("button")[0],
 buttonPlus2=document.getElementsByTagName("button")[1],
@@ -22,15 +22,21 @@ expensesAmount=document.querySelector(".expenses-amount"),
 addExpensesItem=document.querySelector(".additional_expenses-item"),
 targetAmount=document.querySelector(".target-amount"),
 period=document.querySelector(".period-select"),
-expensesItems=document.querySelectorAll(".expenses-items"),
-incomeItems=document.querySelectorAll(".income-items"),
+
+
 periodAmount=document.querySelector(".period-amount"),
 
 inputText=document.querySelectorAll("input[type=text] "); //все инпуты с типом текст для блокировки и разблокировки
 
 
+//поля доходы и обязательные расходы
+let incomeItems=document.querySelectorAll(".income-items"),
+expensesItems=document.querySelectorAll(".expenses-items");
+
+
+
 //для добавления пустых инпутов (дополнительный доход, обязательные расходы)
-let expItem=expensesItems[0].cloneNode(true),
+const expItem=expensesItems[0].cloneNode(true),
 incItem=incomeItems[0].cloneNode(true);
 
 class AppData{
@@ -59,8 +65,6 @@ class AppData{
             this.showResult();
             this.res();
             this.addIncome=[];
-            console.log(this.addIncome);
-            
         }
         getExpensesMonth(){
                 expensesItems.forEach((el)=>{
@@ -138,15 +142,14 @@ class AppData{
             
 }
 
-
-let appData=new AppData ();
+const appData=new AppData ();
 
 
 
 
 
 //для обнуления значений запомним начальное состояние appData
- let oldAppData={}
+const oldAppData={}
  for(key in appData){
      oldAppData[key]=appData[key];
  }
@@ -169,6 +172,8 @@ const addIncomeValue=()=>{
     }
     incomeItems=document.querySelectorAll(".income-items")   
 };
+
+
 
 //сброс всех инпутов
 cancel.addEventListener("click",()=>{
@@ -209,7 +214,7 @@ period.addEventListener("input",()=>periodAmount.textContent=period.value)
 
 
  //запрет ввода 
-let nameWords=document.querySelectorAll("input[placeholder='Наименование']"),
+const nameWords=document.querySelectorAll("input[placeholder='Наименование']"),
 nameSum=document.querySelectorAll("input[placeholder='Сумма']");
 
 nameWords.forEach((el)=>{
